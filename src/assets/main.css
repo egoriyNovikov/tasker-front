@@ -1,0 +1,45 @@
+:root {
+  --bg: #0f0f1a;
+  --surface: #16162a;
+  --border: #2a2a4a;
+  --border-hover: #3a3a6a;
+  --accent: #6366f1;
+  --text: #e0e0ff;
+  --muted: #8888aa;
+  --dim: #666699;
+  --icon: #a0a0cc;
+  --danger: #ff6b6b;
+  --input-bg: #252545;
+  --input-border: #3a3a5a;
+  --sidebar-width: 64px;
+  --content-width: 520px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
