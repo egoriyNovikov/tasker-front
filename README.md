@@ -1,48 +1,42 @@
-# tasker
+# Tasker
 
-This template should help get you started developing with Vue 3 in Vite.
+Приложение для задач. Стек: Vue 3, Pinia, Vue Router.
 
-## Recommended IDE Setup
+Макет первой страницы — тёмная тема, узкий сайдбар, список задач и поле ввода снизу.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Запуск
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Через Docker:
 
 ```sh
-npm run build
+docker compose up -d
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+Открыть [http://localhost:5173](http://localhost:5173).
 
-```sh
-npm run lint
-```
+## TODO
+
+### Сегодня — каркас
+
+- [x] Базовая разметка: layout, сайдбар, страница задач
+- [x] Компоненты: шапка, список, карточка задачи, поле ввода, canvas-фон
+- [x] Заглушки маршрутов: чат, календарь, настройки
+
+### Завтра — первая страница
+
+- [ ] Стор задач в Pinia: добавить, отметить выполненным, удалить
+- [ ] Связать форму и список со стором
+- [ ] Пустое состояние, когда задач нет
+- [ ] Анимация частиц на canvas (как в макете)
+- [ ] Мелочи UI: hover, появление карточки, фокус инпута
+
+### Дальше
+
+- [ ] Страница чата
+- [ ] Календарь
+- [ ] Настройки
