@@ -29,9 +29,9 @@ function submit() {
   position: relative;
   z-index: 1;
   width: 100%;
-  padding: 16px 20px;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
+  padding: 14px 20px 18px;
+  background: transparent;
+  border: none;
   display: flex;
   justify-content: center;
 }
