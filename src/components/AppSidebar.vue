@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import AuthButton from './AuthButton.vue'
+
 const items = [
   {
     to: '/',
@@ -54,6 +56,7 @@ const items = [
         />
       </svg>
     </RouterLink>
+    <AuthButton />
   </nav>
 </template>
 
