@@ -58,8 +58,8 @@ const setMode = (newMode: 'login' | 'register') => {
         </button>
       </div>
 
-      <LoginForm v-if="mode === 'login'" />
-      <RegisterForm v-if="mode === 'register'" />
+      <LoginForm v-if="mode === 'login'" @login="isOpen = false" />
+      <RegisterForm v-if="mode === 'register'" @register="mode = 'login'" />
 
       <!-- Дополнительная информация -->
       <div class="auth-note">Авторизация будет подключена к API Tasker.</div>

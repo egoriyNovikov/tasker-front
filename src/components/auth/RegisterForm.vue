@@ -1,6 +1,21 @@
 <script setup lang="ts">
-const submitAuth = () => {
-  console.log('submitAuth')
+import { useAuthStore } from '@/stores/auth'
+import { ref } from 'vue'
+const authStore = useAuthStore()
+const email = ref('')
+const password = ref('')
+const name = ref('')
+const emit = defineEmits<{
+  register: []
+}>()
+
+const submitAuth = async () => {
+  await authStore.register({
+    email: email.value,
+    password: password.value,
+    name: name.value,
+  })
+  emit('register')
 }
 </script>
 <template>
@@ -8,19 +23,19 @@ const submitAuth = () => {
     <!-- Email -->
     <label>
       Email
-      <input type="email" placeholder="you@example.com" required />
+      <input v-model="email" type="email" placeholder="you@example.com" required />
     </label>
 
     <!-- Пароль -->
     <label>
       Пароль
-      <input type="password" placeholder="••••••••" required minlength="6" />
+      <input v-model="password" type="password" placeholder="••••••••" required minlength="6" />
     </label>
 
     <!-- Имя — только при регистрации -->
     <label>
       Имя
-      <input type="text" placeholder="Как тебя зовут?" />
+      <input v-model="name" type="text" placeholder="Как тебя зовут?" />
     </label>
 
     <!-- Отправка формы -->
