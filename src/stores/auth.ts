@@ -6,7 +6,7 @@ import type { User } from '../types/user'
 const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null as User | null,
-    token: null as string | null,
+    token: localStorage.getItem('token') ?? (null as string | null),
   }),
   actions: {
     async login(credentials: LoginCredentials) {
@@ -30,6 +30,19 @@ const useAuthStore = defineStore('auth', {
       this.user = response
       localStorage.setItem('user', JSON.stringify(response))
       console.log(response)
+    },
+    async init() {
+      if (!this.token) {
+        return
+      }
+
+      try {
+        await this.me()
+      } catch {
+        this.token = null
+        this.user = null
+        localStorage.removeItem('token')
+      }
     },
   },
   getters: {
