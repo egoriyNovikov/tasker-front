@@ -12,9 +12,9 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="task" :class="{ done: task.done }">
-    <input type="checkbox" :checked="task.done" @change="$emit('toggle')" />
-    <span>{{ task.text }}</span>
+  <div class="task" :class="{ done: task.completed_at }">
+    <input type="checkbox" :checked="task.completed_at" @change="$emit('toggle')" />
+    <span>{{ task.title }}</span>
     <button type="button" aria-label="Удалить задачу" @click="$emit('remove')">×</button>
   </div>
 </template>
