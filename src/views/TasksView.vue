@@ -3,27 +3,26 @@ import ParticlesCanvas from '@/components/tasks/ParticlesCanvas.vue'
 import TaskHeader from '@/components/tasks/TaskHeader.vue'
 import TaskInput from '@/components/tasks/TaskInput.vue'
 import TaskList from '@/components/tasks/TaskList.vue'
-import type { Task } from '@/types/task'
-import { ref } from 'vue'
+import useTasksStore from '@/stores/tasks.ts'
+import { onMounted } from 'vue'
+const tasksStore = useTasksStore()
 
-const tasks = ref<Task[]>([
-  { id: 1, text: 'Собрать базовую разметку', done: true },
-  { id: 2, text: 'Подключить Pinia-стор задач', done: false },
-  { id: 3, text: 'Добавить анимацию частиц', done: false },
-])
+onMounted(async () => {
+  await tasksStore.fetchTasks()
+  console.log(tasksStore.tasks)
+})
 
-function addTask(text: string) {
-  // TODO (завтра): добавить через стор
-  void text
+const addTask = async (text: string) => {
+  await tasksStore.createTask({ title: text, description: '', due_at: new Date().toISOString() })
+  tasksStore.tasks = tasksStore.tasks
 }
 
-function toggleTask(id: number) {
-  // TODO (завтра): переключить через стор
-  void id
+const removeTask = async (id: number) => {
+  await tasksStore.deleteTask({ id })
+  tasksStore.tasks = tasksStore.tasks
 }
-
-function removeTask(id: number) {
-  // TODO (завтра): удалить через стор
+const toggleTask = async (id: number) => {
+  //TODO: toggle task
   void id
 }
 </script>
@@ -34,7 +33,7 @@ function removeTask(id: number) {
 
     <div class="content">
       <TaskHeader />
-      <TaskList :tasks="tasks" @toggle="toggleTask" @remove="removeTask" />
+      <TaskList :tasks="tasksStore.tasks" @toggle="toggleTask" @remove="removeTask" />
     </div>
 
     <TaskInput @add="addTask" />
