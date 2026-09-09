@@ -30,6 +30,12 @@ type TaskDeleteResponse = {
   id: number
 }
 
+type ToggleTaskRequest = {
+  id: number
+  completed_at: Date | null
+}
+
+type ToggleTaskResponse = Task
 export type {
   GetTasksResponse,
   Task,
@@ -37,4 +43,6 @@ export type {
   TaskCreateResponse,
   TaskDeleteRequest,
   TaskDeleteResponse,
+  ToggleTaskRequest,
+  ToggleTaskResponse,
 }

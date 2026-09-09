@@ -22,7 +22,12 @@ const removeTask = async (id: number) => {
   tasksStore.tasks = tasksStore.tasks
 }
 const toggleTask = async (id: number) => {
-  //TODO: toggle task
+  const task = tasksStore.tasks.find((task) => task.id === id)
+  if (!task) return
+  await tasksStore.toggleTask({
+    id,
+    completed_at: task.completed_at ? null : new Date(),
+  })
   void id
 }
 </script>
