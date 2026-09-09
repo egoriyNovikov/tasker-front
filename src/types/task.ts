@@ -19,9 +19,7 @@ type TaskCreateRequest = {
   due_at: string
 }
 
-type TaskCreateResponse = {
-  data: Task
-}
+type TaskCreateResponse = Task
 
 type TaskDeleteRequest = {
   id: number

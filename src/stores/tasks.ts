@@ -14,8 +14,9 @@ const useTasksStore = defineStore('tasks', {
       this.tasks = response
     },
     async createTask(request: TaskCreateRequest) {
-      const response = await createTask(request)
-      this.tasks.push(response.data)
+      const task = await createTask(request)
+
+      this.tasks.push(task)
     },
     async deleteTask(request: TaskDeleteRequest) {
       const response = await deleteTask(request)
