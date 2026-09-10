@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth'
+import useNotificationStore from '@/stores/notification'
 import { ref } from 'vue'
+
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 const email = ref('')
 const password = ref('')
 const name = ref('')
@@ -16,6 +19,7 @@ const submitAuth = async () => {
     name: name.value,
   })
   emit('register')
+  notificationStore.success('Вы зарегистрировались в системе')
 }
 </script>
 <template>

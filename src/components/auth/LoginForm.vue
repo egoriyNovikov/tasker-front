@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth'
+import useNotificationStore from '@/stores/notification'
 import { ref } from 'vue'
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
 const email = ref('')
 const password = ref('')
 const emit = defineEmits<{
@@ -14,6 +16,7 @@ const submitAuth = async () => {
   })
   await authStore.me()
   emit('login')
+  notificationStore.success('Вы вошли в систему')
 }
 </script>
 <template>
