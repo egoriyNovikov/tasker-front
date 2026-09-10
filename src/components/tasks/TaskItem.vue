@@ -12,9 +12,18 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="task" :class="{ done: task.completed_at }">
+  <div
+    class="task"
+    :class="{
+      done: task.completed_at,
+      overdue: task.completed_at && new Date(task.due_at) < new Date(),
+    }"
+  >
     <input type="checkbox" :checked="task.completed_at" @change="$emit('toggle')" />
-    <span>{{ task.title }}</span>
+    <span
+      >{{ task.title }}
+      <span class="due-at">{{ new Date(task.due_at).toLocaleDateString('ru-RU') }}</span></span
+    >
     <button type="button" aria-label="Удалить задачу" @click="$emit('remove')">×</button>
   </div>
 </template>
@@ -48,9 +57,18 @@ defineEmits<{
   font-size: 16px;
 }
 
+.task span .due-at {
+  font-size: 12px;
+  color: var(--dim);
+}
+
 .task.done span {
   text-decoration: line-through;
   color: var(--dim);
+}
+
+.task.overdue span {
+  color: var(--danger);
 }
 
 .task button {
