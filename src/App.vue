@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppSidebar from '@/components/AppSidebar.vue'
+import NotificationToast from '@/components/NotificationToast.vue'
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import AppSidebar from '@/components/AppSidebar.vue'
     <main class="main">
       <RouterView />
     </main>
+    <NotificationToast />
   </div>
 </template>
 

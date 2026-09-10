@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth'
+import useNotificationStore from '@/stores/notification'
 const authStore = useAuthStore()
-
+const notificationStore = useNotificationStore()
 const logout = () => {
   authStore.logout()
+  notificationStore.success('Вы вышли из системы')
 }
 </script>
 
