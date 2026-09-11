@@ -2,15 +2,15 @@
 import { ref } from 'vue'
 
 const emit = defineEmits<{
-  add: [text: string]
+  add: [text: string, due_at: string]
 }>()
 
 const text = ref('')
-
+const due_at = ref('')
 function submit() {
   const value = text.value.trim()
   if (!value) return
-  emit('add', value)
+  emit('add', value, due_at.value)
   text.value = ''
 }
 </script>
@@ -19,6 +19,7 @@ function submit() {
   <form class="input-bar" @submit.prevent="submit">
     <div class="input-wrap">
       <input v-model="text" placeholder="Что нужно сделать?" />
+      <input class="input-date" type="datetime-local" v-model="due_at" />
       <button type="submit" aria-label="Добавить задачу">+</button>
     </div>
   </form>
@@ -35,16 +36,17 @@ function submit() {
   display: flex;
   justify-content: center;
 }
-
 .input-wrap {
   width: var(--content-width);
   max-width: 90vw;
+  margin: 0 auto;
   display: flex;
   gap: 12px;
 }
 
 .input-wrap input {
   flex: 1;
+  min-width: 0;
   background: var(--input-bg);
   border: 1px solid var(--input-border);
   border-radius: 14px;
@@ -52,6 +54,11 @@ function submit() {
   color: var(--text);
   font-size: 16px;
   outline: none;
+}
+
+.input-date {
+  flex: 0 0 180px !important;
+  padding: 16px 14px !important;
 }
 
 .input-wrap input:focus {

@@ -13,17 +13,16 @@ onMounted(async () => {
   console.log(tasksStore.tasks)
 })
 
-const addTask = async (text: string) => {
-  const result = await tasksStore.createTask({
-    title: text,
-    description: '',
-    due_at: new Date().toISOString(),
-  })
-  tasksStore.tasks = tasksStore.tasks
-  if (result) {
+const addTask = async (text: string, due_at: string) => {
+  try {
+    await tasksStore.createTask({
+      title: text,
+      description: '',
+      due_at: due_at,
+    })
     notificationStore.success('Задача добавлена')
-  } else {
-    notificationStore.error('Не удалось добавить задачу')
+  } catch (error) {
+    notificationStore.error('Не удалось добавить задачу ' + error)
   }
 }
 
