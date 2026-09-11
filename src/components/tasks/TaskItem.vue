@@ -16,7 +16,7 @@ defineEmits<{
     class="task"
     :class="{
       done: task.completed_at,
-      overdue: task.completed_at && new Date(task.due_at) < new Date(),
+      overdue: !task.completed_at && new Date(task.due_at) < new Date(),
     }"
   >
     <input type="checkbox" :checked="task.completed_at" @change="$emit('toggle')" />
