@@ -7,20 +7,57 @@ const emit = defineEmits<{
 
 const text = ref('')
 const due_at = ref('')
+const isRecognizing = ref(false)
+
 function submit() {
   const value = text.value.trim()
   if (!value) return
-  emit('add', value, due_at.value)
+  const date = due_at.value || new Date().toISOString()
+  emit('add', value, date)
   text.value = ''
+  due_at.value = ''
+}
+function startRecognition() {
+  const recognition = new webkitSpeechRecognition()
+
+  recognition.lang = 'ru-RU'
+
+  recognition.onstart = () => {
+    isRecognizing.value = true
+  }
+
+  recognition.onend = () => {
+    isRecognizing.value = false
+  }
+
+  recognition.onresult = (event: SpeechRecognitionEvent) => {
+    text.value = event.results[0][0].transcript
+  }
+
+  recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+    console.error('Speech recognition error:', event.error)
+  }
+
+  recognition.start()
+}
+
+function handleSubmit() {
+  if (text.value) {
+    submit()
+  } else {
+    startRecognition()
+  }
 }
 </script>
 
 <template>
-  <form class="input-bar" @submit.prevent="submit">
+  <form class="input-bar" @submit.prevent="handleSubmit">
     <div class="input-wrap">
       <input v-model="text" placeholder="Что нужно сделать?" />
       <input class="input-date" type="datetime-local" v-model="due_at" />
-      <button type="submit" aria-label="Добавить задачу">+</button>
+      <button type="submit" aria-label="Добавить задачу">
+        {{ text ? '+' : isRecognizing ? '🔴' : '🎙️' }}
+      </button>
     </div>
   </form>
 </template>
