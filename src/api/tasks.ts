@@ -8,6 +8,8 @@ import type {
   TaskDeleteResponse,
   ToggleTaskRequest,
   ToggleTaskResponse,
+  InterpretTaskRequest,
+  InterpretTaskResponse,
 } from '../types/task'
 
 export const getTasks = async (): Promise<Task[]> => {
@@ -29,6 +31,12 @@ export const deleteTask = async (request: TaskDeleteRequest): Promise<TaskDelete
 
 export const toggleTask = async (request: ToggleTaskRequest): Promise<ToggleTaskResponse> => {
   const response = await client.patch(`api/tasks/${request.id}`, request)
+  console.log(response)
+  return response.data
+}
+
+export const interpretTask = async (request: InterpretTaskRequest): Promise<InterpretTaskResponse> => {
+  const response = await client.post('api/tasks/interpret', request)
   console.log(response)
   return response.data
 }
