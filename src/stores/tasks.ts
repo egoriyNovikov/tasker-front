@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia'
-import { createTask, deleteTask, getTasks, toggleTask } from '../api/tasks'
-import type { Task, TaskCreateRequest, TaskDeleteRequest, ToggleTaskRequest } from '../types/task'
+import { createTask, deleteTask, getTasks, interpretTask, toggleTask } from '../api/tasks'
+import type {
+  InterpretTaskRequest,
+  Task,
+  TaskCreateRequest,
+  TaskDeleteRequest,
+  ToggleTaskRequest,
+} from '../types/task'
 
 const useTasksStore = defineStore('tasks', {
   state: () => ({
@@ -25,6 +31,10 @@ const useTasksStore = defineStore('tasks', {
     async toggleTask(request: ToggleTaskRequest) {
       const updatedTask = await toggleTask(request)
       this.tasks = this.tasks.map((task) => (task.id === request.id ? updatedTask : task))
+    },
+    async interpretTask(request: InterpretTaskRequest) {
+      const response = await interpretTask(request)
+      return response
     },
   },
   getters: {

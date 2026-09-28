@@ -35,9 +35,22 @@ type ToggleTaskRequest = {
   completed_at: Date | null
 }
 
+type InterpretTaskRequest = {
+  text: string
+  confidence: number
+}
+
+type InterpretTaskResponse = {
+  action: 'create_task' | 'update_task' | 'delete_task' | 'unknown'
+  data: Task
+  message?: string
+}
+
 type ToggleTaskResponse = Task
 export type {
   GetTasksResponse,
+  InterpretTaskRequest,
+  InterpretTaskResponse,
   Task,
   TaskCreateRequest,
   TaskCreateResponse,

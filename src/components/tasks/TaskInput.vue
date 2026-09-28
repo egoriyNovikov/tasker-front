@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import useNotificationStore from '@/stores/notification'
+import useTasksStore from '@/stores/tasks'
 import { ref } from 'vue'
-
 const emit = defineEmits<{
   add: [text: string, due_at: string]
 }>()
+const notificationStore = useNotificationStore()
 
 const text = ref('')
 const due_at = ref('')
@@ -17,6 +19,21 @@ function submit() {
   text.value = ''
   due_at.value = ''
 }
+
+const tasksStore = useTasksStore()
+const interpretTask = async (transcript: string, confidence: number) => {
+  const response = await tasksStore.interpretTask({
+    text: transcript,
+    confidence: confidence,
+  })
+  if (response.action !== 'create_task') {
+    notificationStore.info(response.message ?? 'Не удалось определить задачу')
+    return
+  }
+  emit('add', response?.title, response?.due_at)
+  notificationStore.success('Задача добавлена')
+}
+
 function startRecognition() {
   const recognition = new webkitSpeechRecognition()
 
@@ -31,7 +48,8 @@ function startRecognition() {
   }
 
   recognition.onresult = (event: SpeechRecognitionEvent) => {
-    text.value = event.results[0][0].transcript
+    console.log(event.results[0][0])
+    interpretTask(event.results[0][0].transcript, event.results[0][0].confidence)
   }
 
   recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
